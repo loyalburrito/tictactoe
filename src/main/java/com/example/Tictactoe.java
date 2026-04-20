@@ -36,6 +36,6 @@ public class Tictactoe {
         } else {
             currentPlayer = 'O';
         }
-        System.out.println("Toss won! Player " + currentPlayer + " will start the game.");
+        System.out.println("Player " + currentPlayer + " will start the game.");
     }
 }
