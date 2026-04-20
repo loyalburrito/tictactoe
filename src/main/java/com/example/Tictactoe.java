@@ -1,13 +1,19 @@
 package com.example;
+import java.util.Scanner;
+
 public class Tictactoe {
 
     static char[][] board = new char[3][3];
     static char currentPlayer;
+    static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         initializeBoard();
         tossToDecideFirstPlayer();
         printBoard();
+        
+        int selectedSlot = getUserInput();
+        System.out.println("Slot received: " + selectedSlot);
     }
 
     static void initializeBoard() {
@@ -36,6 +42,12 @@ public class Tictactoe {
         } else {
             currentPlayer = 'O';
         }
-        System.out.println("Player " + currentPlayer + " will start the game.");
+        System.out.println("Toss won! Player " + currentPlayer + " will start the game.");
+    }
+
+    static int getUserInput() {
+        System.out.print("Player " + currentPlayer + ", enter a slot number (1-9): ");
+        int slot = scanner.nextInt();
+        return slot;
     }
 }
