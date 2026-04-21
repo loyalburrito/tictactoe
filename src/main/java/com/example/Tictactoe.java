@@ -6,17 +6,19 @@ public class Tictactoe {
     static char[][] board = new char[3][3];
     static char currentPlayer;
     static Scanner scanner = new Scanner(System.in);
-
     public static void main(String[] args) {
         initializeBoard();
         tossToDecideFirstPlayer();
-        printBoard();
-        
+        printBoard();     
         int selectedSlot = getUserInput();
         int[] indices = convertSlotToIndices(selectedSlot);
-        System.out.println("Mapped to -> Row: " + indices[0] + ", Column: " + indices[1]);
+        
+        if (isValidMove(indices[0], indices[1])) {
+            System.out.println("Move is valid and accepted.");
+        } else {
+            System.out.println("Invalid move. The cell is out of bounds or already taken.");
+        }
     }
-
     static void initializeBoard() {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
@@ -24,7 +26,6 @@ public class Tictactoe {
             }
         }
     }
-
     static void printBoard() {
         System.out.println("---------------");
         for (int row = 0; row < 3; row++) {
@@ -36,7 +37,6 @@ public class Tictactoe {
             System.out.println("---------------");
         }
     }
-
     static void tossToDecideFirstPlayer() {
         if (Math.random() < 0.5) {
             currentPlayer = 'X';
@@ -45,7 +45,6 @@ public class Tictactoe {
         }
         System.out.println("Toss won! Player " + currentPlayer + " will start the game.");
     }
-
     static int getUserInput() {
         System.out.print("Player " + currentPlayer + ", enter a slot number (1-9): ");
         return scanner.nextInt();
@@ -54,5 +53,16 @@ public class Tictactoe {
         int row = (slot - 1) / 3;
         int col = (slot - 1) % 3;
         return new int[]{row, col};
+    }
+    static boolean isValidMove(int row, int col) {
+        if (row < 0 || row > 2 || col < 0 || col > 2) {
+            return false;
+        }
+        
+        if (board[row][col] != '-') {
+            return false;
+        }
+        
+        return true;
     }
 }
