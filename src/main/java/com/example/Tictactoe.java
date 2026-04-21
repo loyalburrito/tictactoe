@@ -13,7 +13,8 @@ public class Tictactoe {
         printBoard();
         
         int selectedSlot = getUserInput();
-        System.out.println("Slot received: " + selectedSlot);
+        int[] indices = convertSlotToIndices(selectedSlot);
+        System.out.println("Mapped to -> Row: " + indices[0] + ", Column: " + indices[1]);
     }
 
     static void initializeBoard() {
@@ -47,7 +48,12 @@ public class Tictactoe {
 
     static int getUserInput() {
         System.out.print("Player " + currentPlayer + ", enter a slot number (1-9): ");
-        int slot = scanner.nextInt();
-        return slot;
+        return scanner.nextInt();
+    }
+
+    static int[] convertSlotToIndices(int slot) {
+        int row = (slot - 1) / 3;
+        int col = (slot - 1) % 3;
+        return new int[]{row, col};
     }
 }
