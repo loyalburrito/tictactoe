@@ -50,7 +50,6 @@ public class Tictactoe {
         System.out.print("Player " + currentPlayer + ", enter a slot number (1-9): ");
         return scanner.nextInt();
     }
-
     static int[] convertSlotToIndices(int slot) {
         int row = (slot - 1) / 3;
         int col = (slot - 1) % 3;
