@@ -36,11 +36,11 @@ public class Tictactoe {
 
             if (checkWin()) {
                 printBoard();
-                System.out.println("Player " + currentPlayer + " wins!");
+                System.out.println("Player " + currentPlayer + " wins the game!");
                 gameRunning = false;
             } else if (isBoardFull()) {
                 printBoard();
-                System.out.println("The game is a draw!");
+                System.out.println("It's a draw!");
                 gameRunning = false;
             } else {
                 switchPlayer();
@@ -129,11 +129,22 @@ public class Tictactoe {
 
     static boolean checkWin() {
         for (int i = 0; i < 3; i++) {
-            if (board[i][0] == currentPlayer && board[i][1] == currentPlayer && board[i][2] == currentPlayer) return true;
-            if (board[0][i] == currentPlayer && board[1][i] == currentPlayer && board[2][i] == currentPlayer) return true;
+            if (board[i][0] != '-' && board[i][0] == board[i][1] && board[i][1] == board[i][2]) {
+                return true;
+            }
+            if (board[0][i] != '-' && board[0][i] == board[1][i] && board[1][i] == board[2][i]) {
+                return true;
+            }
         }
-        if (board[0][0] == currentPlayer && board[1][1] == currentPlayer && board[2][2] == currentPlayer) return true;
-        if (board[0][2] == currentPlayer && board[1][1] == currentPlayer && board[2][0] == currentPlayer) return true;
+        
+        if (board[0][0] != '-' && board[0][0] == board[1][1] && board[1][1] == board[2][2]) {
+            return true;
+        }
+        
+        if (board[0][2] != '-' && board[0][2] == board[1][1] && board[1][1] == board[2][0]) {
+            return true;
+        }
+        
         return false;
     }
 }
