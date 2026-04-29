@@ -36,11 +36,11 @@ public class Tictactoe {
 
             if (checkWin()) {
                 printBoard();
-                System.out.println("Player " + currentPlayer + " wins the game!");
+                System.out.println("Player " + currentPlayer + " wins!");
                 gameRunning = false;
             } else if (isBoardFull()) {
                 printBoard();
-                System.out.println("It's a draw!");
+                System.out.println("No moves left. It is a draw!");
                 gameRunning = false;
             } else {
                 switchPlayer();
@@ -117,14 +117,15 @@ public class Tictactoe {
     }
 
     static boolean isBoardFull() {
+        boolean full = true;
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
                 if (board[row][col] == '-') {
-                    return false;
+                    full = false;
                 }
             }
         }
-        return true;
+        return full;
     }
 
     static boolean checkWin() {
