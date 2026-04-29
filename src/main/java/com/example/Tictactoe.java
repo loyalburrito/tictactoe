@@ -1,26 +1,34 @@
 package com.example;
+
+import java.util.Random;
 import java.util.Scanner;
 
 public class Tictactoe {
 
     static char[][] board = new char[3][3];
     static char currentPlayer;
+    static char computerSymbol = 'O';
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         initializeBoard();
         tossToDecideFirstPlayer();
-        printBoard();     
-        int selectedSlot = getUserInput();
-        int[] indices = convertSlotToIndices(selectedSlot);
+        printBoard();
         
-        if (isValidMove(indices[0], indices[1])) {
-            placeMove(indices[0], indices[1], currentPlayer);
-            System.out.println("Move accepted. Updated board:");
-            printBoard();
+        if (currentPlayer == computerSymbol) {
+            computerMove();
         } else {
-            System.out.println("Invalid move. The cell is out of bounds or already taken.");
+            int selectedSlot = getUserInput();
+            int[] indices = convertSlotToIndices(selectedSlot);
+            if (isValidMove(indices[0], indices[1])) {
+                placeMove(indices[0], indices[1], currentPlayer);
+                System.out.println("Player " + currentPlayer + " placed move in slot: " + selectedSlot);
+            } else {
+                System.out.println("Invalid move selection.");
+            }
         }
+        
+        printBoard();
     }
 
     static void initializeBoard() {
@@ -67,11 +75,23 @@ public class Tictactoe {
         if (row < 0 || row > 2 || col < 0 || col > 2) {
             return false;
         }
-        
         return board[row][col] == '-';
     }
 
     static void placeMove(int row, int col, char symbol) {
         board[row][col] = symbol;
+    }
+
+    static void computerMove() {
+        Random random = new Random();
+        while (true) {
+            int slot = random.nextInt(9) + 1;
+            int[] indices = convertSlotToIndices(slot);
+            if (isValidMove(indices[0], indices[1])) {
+                placeMove(indices[0], indices[1], computerSymbol);
+                System.out.println("Computer placed " + computerSymbol + " in slot: " + slot);
+                break;
+            }
+        }
     }
 }
